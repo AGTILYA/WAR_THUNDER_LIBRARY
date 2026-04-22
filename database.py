@@ -1,8 +1,8 @@
 import sqlite3
 from datetime import datetime
-
+import os
 class Database:
-    def __init__(self, db_name='war_thunder.db'):
+    def __init__(self, db_name = os.path.join(os.path.dirname(__file__), 'war_thunder.db')):
         self.db_name = db_name
         self.init_database()
     

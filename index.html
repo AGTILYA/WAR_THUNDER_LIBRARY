@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>War Thunder - Коллекция техники</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ff9900">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <span>War Thunder Коллекция</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" data-i18n="nav_home">Главная</a></li>
+                <li><a href="#vehicles" data-i18n="nav_vehicles">Техника</a></li>
+                <li><a href="stats.html" data-i18n="nav_stats">Статистика</a></li>
+                <li><a href="map.html" data-i18n="nav_map">Карта</a></li>
+                <li><a href="favorites.html" data-i18n="nav_favorites">Избранное</a></li>
+                <li><a href="compare.html" data-i18n="nav_compare">Сравнение</a></li>
+                <li><a href="admin.html" data-i18n="nav_admin">Админ-панель</a></li>
+                <li>
+                    <div class="theme-switch">
+                        <input type="checkbox" id="theme-toggle">
+                        <label for="theme-toggle">🌙</label>
+                    </div>
+                </li>
+                <li>
+                    <div class="lang-switch">
+                        <button id="lang-ru" class="lang-btn active">RU</button>
+                        <button id="lang-en" class="lang-btn">EN</button>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1 data-i18n="hero_title">Коллекция техники War Thunder</h1>
+                <p data-i18n="hero_subtitle">Просматривайте, сравнивайте, добавляйте в избранное и оценивайте технику War Thunder</p>
+                <div class="hero-buttons">
+                    <a href="#vehicles" class="btn" data-i18n="hero_btn_vehicles">Смотреть технику</a>
+                    <button id="random-vehicle-btn" class="btn btn-secondary" data-i18n="hero_btn_random">🎲 Мне повезёт</button>
+                </div>
+                <div id="random-vehicle-container" class="random-vehicle-card" style="display: none;"></div>
+            </div>
+        </section>
+
+        <section id="vehicles" class="vehicles-section">
+            <h2 data-i18n="vehicles_title">Коллекция техники</h2>
+            
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all" data-i18n="filter_all">Вся техника</button>
+                <button class="filter-btn" data-filter="tank" data-i18n="filter_tank">Танки</button>
+                <button class="filter-btn" data-filter="plane" data-i18n="filter_plane">Самолеты</button>
+                <button class="filter-btn" data-filter="boat" data-i18n="filter_boat">Катера</button>
+                <button class="filter-btn" data-filter="submarine" data-i18n="filter_submarine">Подлодки</button>
+                <button class="filter-btn" data-filter="ship" data-i18n="filter_ship">Корабли</button>
+            </div>
+
+            <div class="advanced-filters">
+                <div class="filter-group">
+                    <input type="text" id="search-name" data-i18n-placeholder="search_placeholder" placeholder="Поиск по названию...">
+                </div>
+                <div class="filter-group">
+                    <select id="filter-nation">
+                        <option value="" data-i18n="nation_all">Все нации</option>
+                        <option value="ussr" data-i18n="nation_ussr">СССР</option>
+                        <option value="germany" data-i18n="nation_germany">Германия</option>
+                        <option value="usa" data-i18n="nation_usa">США</option>
+                        <option value="britain" data-i18n="nation_britain">Великобритания</option>
+                        <option value="japan" data-i18n="nation_japan">Япония</option>
+                    </select>
+                </div>
+                <div class="filter-group range-group">
+                    <label data-i18n="rank_label">Ранг: <span id="rank-range-value">1-7</span></label>
+                    <div class="range-inputs">
+                        <input type="range" id="min-rank" min="1" max="7" value="1">
+                        <input type="range" id="max-rank" min="1" max="7" value="7">
+                    </div>
+                </div>
+                <div class="filter-group range-group">
+                    <label data-i18n="br_label">БР: <span id="br-range-value">1.0-11.7</span></label>
+                    <div class="range-inputs">
+                        <input type="range" id="min-br" min="1.0" max="11.7" step="0.3" value="1.0">
+                        <input type="range" id="max-br" min="1.0" max="11.7" step="0.3" value="11.7">
+                    </div>
+                </div>
+                <div class="filter-group buttons">
+                    <button id="apply-filters" class="btn" data-i18n="apply_filters">Применить</button>
+                    <button id="reset-filters" class="btn btn-secondary" data-i18n="reset_filters">Сбросить</button>
+                </div>
+            </div>
+
+            <div class="vehicles-container" id="vehicles-container">
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p data-i18n="loading">Загрузка техники...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>War Thunder Коллекция © 2026</p>
+    </footer>
+
+    <div id="vehicle-modal" class="modal" style="display:none;">
+        <div class="modal-content" id="modal-content">
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

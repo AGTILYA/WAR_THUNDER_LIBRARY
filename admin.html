@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель War Thunder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="admin-container" id="login-screen">
+        <div class="login-form">
+            <div class="login-header">
+                <h2>Админ-панель</h2>
+                <p>Вход</p>
+            </div>
+            <form id="admin-login-form">
+                <div class="form-group">
+                    <label>Ник</label>
+                    <input type="text" id="admin-username" required>
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" id="admin-password" required>
+                </div>
+                <button type="submit" class="btn-submit">Войти</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="admin-panel" id="admin-panel" style="display:none;">
+        <header>
+            <nav class="navbar">
+                <div class="logo">Админ-панель</div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="#" id="logout-btn">Выйти</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main class="admin-main">
+            <!-- Форма добавления -->
+            <section class="admin-section">
+                <h2>Добавить технику</h2>
+                <form id="admin-add-vehicle-form" enctype="multipart/form-data">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Название</label>
+                            <input type="text" id="admin-vehicle-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Тип</label>
+                            <select id="admin-vehicle-type" required>
+                                <option value="">Выберите</option>
+                                <option value="tank">Танк</option>
+                                <option value="plane">Самолёт</option>
+                                <option value="boat">Катер</option>
+                                <option value="submarine">Подлодка</option>
+                                <option value="ship">Корабль</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Нация</label>
+                            <select id="admin-vehicle-nation" required>
+                                <option value="">Выберите</option>
+                                <option value="ussr">СССР</option>
+                                <option value="germany">Германия</option>
+                                <option value="usa">США</option>
+                                <option value="britain">Великобритания</option>
+                                <option value="japan">Япония</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Ранг</label>
+                            <select id="admin-vehicle-rank" required>
+                                <option value="">Выберите</option>
+                                <option value="1">I</option>
+                                <option value="2">II</option>
+                                <option value="3">III</option>
+                                <option value="4">IV</option>
+                                <option value="5">V</option>
+                                <option value="6">VI</option>
+                                <option value="7">VII</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Боевой рейтинг</label>
+                            <input type="number" id="admin-vehicle-br" min="1.0" max="11.7" step="0.3" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Изображения (можно несколько, до 5)</label>
+                            <div id="images-container">
+                                <div class="image-input-group">
+                                    <input type="file" name="images" accept="image/*" class="image-file-input">
+                                    <button type="button" class="remove-image-btn" style="display:none;">✖</button>
+                                </div>
+                            </div>
+                            <button type="button" id="add-image-btn" class="btn-secondary btn-sm">+ Добавить ещё фото</button>
+                            <div id="file-info" class="file-info">Файлы не выбраны</div>
+                            <div id="image-preview-container" class="image-preview-container"></div>
+                            <small class="input-hint">Выберите от 1 до 5 изображений. Можно добавлять поля по одному.</small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Описание</label>
+                        <textarea id="admin-vehicle-description" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Теги (через запятую)</label>
+                        <input type="text" id="admin-vehicle-tags" placeholder="Например: премиум, секретный, ивент">
+                    </div>
+                    <button type="submit" class="btn-submit">Добавить технику</button>
+                </form>
+            </section>
+
+            <!-- Список техники с кнопками Удалить и Редактировать -->
+            <section class="admin-section">
+                <h2>Управление техникой</h2>
+                <div class="admin-actions">
+                    <button id="reset-data-btn" class="btn action-btn">Удалить всё</button>
+                    <button id="refresh-btn" class="btn action-btn">Обновить</button>
+                </div>
+                <div id="admin-vehicles-container" class="vehicles-container"></div>
+            </section>
+        </main>
+        <footer>Админ-панель War Thunder</footer>
+    </div>
+
+    <!-- Модальное окно для редактирования -->
+    <div id="edit-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Редактировать технику</h2>
+                <span class="close-modal" onclick="closeEditModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="edit-vehicle-form" enctype="multipart/form-data">
+                    <input type="hidden" id="edit-vehicle-id">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Название</label>
+                            <input type="text" id="edit-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Тип</label>
+                            <select id="edit-type" required>
+                                <option value="tank">Танк</option>
+                                <option value="plane">Самолёт</option>
+                                <option value="boat">Катер</option>
+                                <option value="submarine">Подлодка</option>
+                                <option value="ship">Корабль</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Нация</label>
+                            <select id="edit-nation" required>
+                                <option value="ussr">СССР</option>
+                                <option value="germany">Германия</option>
+                                <option value="usa">США</option>
+                                <option value="britain">Великобритания</option>
+                                <option value="japan">Япония</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Ранг</label>
+                            <select id="edit-rank" required>
+                                <option value="1">I</option>
+                                <option value="2">II</option>
+                                <option value="3">III</option>
+                                <option value="4">IV</option>
+                                <option value="5">V</option>
+                                <option value="6">VI</option>
+                                <option value="7">VII</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Боевой рейтинг</label>
+                            <input type="number" id="edit-br" min="1.0" max="11.7" step="0.3" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Новые изображения (если хотите заменить старые)</label>
+                            <div id="edit-images-container">
+                                <div class="image-input-group">
+                                    <input type="file" name="edit_images" accept="image/*" class="edit-image-file-input">
+                                </div>
+                            </div>
+                            <button type="button" id="add-edit-image-btn" class="btn-secondary btn-sm">+ Добавить ещё фото</button>
+                            <div id="edit-file-info" class="file-info">Новые файлы не выбраны</div>
+                            <div id="edit-preview-container" class="image-preview-container"></div>
+                            <small class="input-hint">Если не выбирать новые файлы, старые изображения останутся. Можно добавить до 5 новых (суммарно не более 5).</small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Описание</label>
+                        <textarea id="edit-description" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Теги (через запятую)</label>
+                        <input type="text" id="edit-tags" placeholder="Например: премиум, секретный, ивент">
+                    </div>
+                    <button type="submit" class="btn-submit">Сохранить изменения</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

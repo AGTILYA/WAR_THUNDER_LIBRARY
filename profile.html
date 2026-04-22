@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль - War Thunder Коллекция</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">War Thunder Коллекция</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="stats.html">Статистика</a></li>
+                <li><a href="map.html">Карта</a></li>
+                <li><a href="favorites.html">Избранное</a></li>
+                <li><a href="compare.html">Сравнение</a></li>
+                <li><a href="admin.html">Админ-панель</a></li>
+                <li><a href="login.html" id="logout-link">Выйти</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="profile-container" id="profile-container">
+            <h1>Профиль пользователя</h1>
+            <div class="profile-card">
+                <div class="profile-avatar">
+                    <img id="avatar-img" src="default-avatar.png" alt="Avatar">
+                </div>
+                <div class="profile-info">
+                    <p><strong>Имя:</strong> <span id="profile-username"></span></p>
+                    <p><strong>Email:</strong> <span id="profile-email"></span></p>
+                    <p><strong>О себе:</strong> <span id="profile-bio"></span></p>
+                </div>
+                <div class="profile-actions">
+                    <button id="edit-profile-btn" class="btn">Редактировать</button>
+                </div>
+            </div>
+            <div class="edit-profile-form" id="edit-profile-form" style="display:none;">
+                <h2>Редактировать профиль</h2>
+                <form id="edit-form">
+                    <div class="form-group">
+                        <label>Аватар (URL)</label>
+                        <input type="url" id="edit-avatar">
+                    </div>
+                    <div class="form-group">
+                        <label>О себе</label>
+                        <textarea id="edit-bio" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn">Сохранить</button>
+                    <button type="button" id="cancel-edit" class="btn btn-secondary">Отмена</button>
+                </form>
+            </div>
+            <div class="notifications-section">
+                <h2>Уведомления</h2>
+                <div id="notifications-list"></div>
+                <button id="mark-all-read" class="btn">Отметить все как прочитанные</button>
+            </div>
+        </div>
+    </main>
+    <footer>War Thunder Коллекция © 2026</footer>
+    <script src="profile.js"></script>
+</body>
+</html>

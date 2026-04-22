@@ -1,0 +1,21 @@
+{
+    "name": "War Thunder Коллекция",
+    "short_name": "WT Коллекция",
+    "description": "Коллекция техники из игры War Thunder",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0f1721",
+    "theme_color": "#ff9900",
+    "icons": [
+        {
+            "src": "icons/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

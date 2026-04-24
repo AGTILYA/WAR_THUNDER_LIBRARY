@@ -435,7 +435,3 @@ def mark_all_notifications_read(user_id):
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-if __name__ == '__main__':
-    db.init_database()
-    print("\n=== War Thunder Коллекция ===")
-    print("Сервер запущен на http://localhost:5000")

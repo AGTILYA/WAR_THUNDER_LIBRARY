@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = '/api';
 
 let currentFilters = {
     type: 'all',
@@ -131,16 +131,13 @@ function applyLanguage() {
             }
         }
     });
-    // Обновляем опции select
     document.querySelectorAll('#filter-nation option').forEach(opt => {
         const key = opt.getAttribute('data-i18n');
         if (key && translations[currentLang][key]) {
             opt.textContent = translations[currentLang][key];
         }
     });
-    // Обновляем кнопки в карточках (динамические)
     updateAllCardsLanguage();
-    // Обновляем модальное окно, если открыто
     const modal = document.getElementById('vehicle-modal');
     if (modal && modal.style.display === 'block') {
         const vehicleId = currentVehicleId;
@@ -184,7 +181,6 @@ function setupLanguageSwitcher() {
         applyLanguage();
     });
     
-    // Устанавливаем активную кнопку при загрузке
     if (currentLang === 'ru') {
         ruBtn.classList.add('active');
         enBtn.classList.remove('active');
